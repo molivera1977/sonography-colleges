@@ -535,6 +535,24 @@ details.mapreg > summary h3 .cnt { color: var(--ink-3); margin-left: 4px; }
   .closelook .folds > .fold-asks { grid-column: 1 / -1; }
 }
 
+/* Getting certified: exam steps and one card per type of school */
+.steps { list-style: none; counter-reset: st; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.steps li { counter-increment: st; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px 14px 56px; position: relative; font-size: 14px; min-width: 0; }
+.steps li::before { content: counter(st); position: absolute; left: 14px; top: 14px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 700 15px/1 var(--font-display); color: var(--hero-ink); background: var(--hero-bg); }
+.steps b { display: block; font-size: 15px; margin-bottom: 2px; }
+.rcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rcard { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--rcc); border-radius: var(--r); padding: 14px 18px; min-width: 0; }
+.rcard.rc-ok { --rcc: var(--ok); } .rcard.rc-probe { --rcc: var(--probe); } .rcard.rc-cal { --rcc: var(--caliper); } .rcard.rc-bad { --rcc: var(--bad); }
+.rc-path { display: inline-block; font: 600 11px/1.2 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--rcc); }
+.rc-head h4 { margin: 4px 0 0; font: 700 16px/1.3 var(--font-display); }
+.rc-who { margin: 6px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.rcard ol { margin: 10px 0 0; padding-left: 20px; font-size: 14px; display: grid; gap: 5px; }
+.rc-when, .rc-catch { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.rc-when b, .rc-catch b { color: var(--ink); }
+.routeline { margin-top: 10px; font-size: 13.5px; color: var(--ink-2); }
+.routeline b { color: var(--ink); }
+@media (max-width: 760px) { .steps, .rcards { grid-template-columns: 1fr; } }
+
 /* Visit questions, grouped */
 .ask { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px 32px; }
 .qgroup h3 { font-size: 15px; color: var(--probe); }
@@ -580,7 +598,7 @@ html { scroll-behavior: smooth; }
     <div class="start-grid">
       <ol class="route">
         <li><a href="#p1"><span class="n">1</span><span><b>The career</b><span>What a sonographer does, what it pays, and whether it fits</span></span></a></li>
-        <li><a href="#p2"><span class="n">2</span><span><b>Three checks</b><span>Accreditation, the routes to the registry exams, and getting a seat</span></span></a></li>
+        <li><a href="#p2"><span class="n">2</span><span><b>Three checks</b><span>Accreditation, getting certified, and getting a seat</span></span></a></li>
         <li><a href="#p3"><span class="n">3</span><span><b>The schools</b><span>Connecticut first, then the map, the compare table, and every program</span></span></a></li>
         <li><a href="#p4"><span class="n">4</span><span><b>Apply and pay</b><span>Deadlines, open houses, questions to ask, and paying for it</span></span></a></li>
         <li><a href="#p5"><span class="n">5</span><span><b>More programs and fine print</b><span>Programs without CAAHEP accreditation, schools ruled out, how this was built</span></span></a></li>
@@ -680,7 +698,7 @@ html { scroll-behavior: smooth; }
   </div>
 
   <div class="part" id="p2" aria-labelledby="p2-t">
-    <div class="part-head"><div class="pn">2</div><div><div class="eyebrow">Part 2 of 5 · before you pick</div><h2 class="part-title" id="p2-t">Three checks</h2><p>What makes a program a safe bet: the program's accreditation, the route to the registry exams, and getting a seat.</p><nav class="part-chips" aria-label="In this part"><a href="#checks">The three checks</a><a href="#pathways">Routes to the registry</a><a href="#doors">Two doors</a><a href="#words">Words on this page</a></nav></div></div>
+    <div class="part-head"><div class="pn">2</div><div><div class="eyebrow">Part 2 of 5 · before you pick</div><h2 class="part-title" id="p2-t">Three checks</h2><p>What makes a program a safe bet: the program's accreditation, the route to certification, and getting a seat.</p><nav class="part-chips" aria-label="In this part"><a href="#checks">The three checks</a><a href="#pathways">Getting certified</a><a href="#doors">Two doors</a><a href="#words">Words on this page</a></nav></div></div>
   <section id="checks">
     <h2>Three checks before you choose</h2>
     <p class="sub">Ask these three things about every program, in this order.</p>
@@ -704,49 +722,83 @@ html { scroll-behavior: smooth; }
   </section>
 
   <section id="pathways">
-    <h2>How a degree leads to the registry exams</h2>
+    <h2>Getting certified: the exams, step by step</h2>
     <p class="sub">The goal of any sonography degree is passing the ARDMS registry exams, because employers may require or prefer that certification. <span class="src">[<a href="https://www.bls.gov/ooh/healthcare/diagnostic-medical-sonographers.htm" target="_blank" rel="noopener">bls.gov</a>]</span> Where a program stands with CAAHEP decides which route to those exams a graduate uses. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
-    <div class="grid2">
+
+    <h3 class="subhead">The exams every route ends with</h3>
+    <ol class="steps">
+      <li><b>The SPI physics exam.</b> About 110 questions in two hours; $275. <span class="src">[<a href="https://www.inteleos.org/exam/sonography-principles-and-instrumentation/" target="_blank" rel="noopener">inteleos.org</a>]</span> She can take it while still in school, once she has passed a college physics course with a C or better (its title must include Physics, Physical Principles, or Instrumentation). <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></li>
+      <li><b>A specialty exam.</b> $300 each: abdomen or OB/GYN for general sonography, adult echo for the heart, vascular technology for blood vessels, and others. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/06/Exam-Fee-Schedule.pdf" target="_blank" rel="noopener">fee schedule</a>]</span></li>
+      <li><b>The credential.</b> Passing the SPI and a specialty within five years of each other, in either order, earns RDMS (general), RDCS (heart), or RVT (vascular). After the SPI, each added specialty needs only its own exam. <span class="src">[<a href="https://www.inteleos.org/exam/sonography-principles-and-instrumentation/" target="_blank" rel="noopener">inteleos.org</a>]</span></li>
+    </ol>
+    <p class="fine">Example: SPI + abdomen + OB/GYN = $875 in exam fees. Each fee includes a $100 processing fee that is not refunded. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/06/Exam-Fee-Schedule.pdf" target="_blank" rel="noopener">fee schedule</a>]</span> Two other groups also certify sonographers, ARRT and CCI; Oregon's license accepts all three. <span class="src">[<a href="https://oregon.public.law/rules/oar_337-010-0014" target="_blank" rel="noopener">Oregon rule</a>]</span></p>
+
+    <h3 class="subhead">Which route her school puts her on</h3>
+    <p class="sub">Before any exam, she applies to ARDMS through one "pathway" that matches her schooling. The type of school decides which one. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
+    <div class="rcards">
+      <article class="rcard rc-ok">
+        <div class="rc-head"><span class="rc-path">Pathway 2</span><h4>A CAAHEP-accredited program</h4></div>
+        <p class="rc-who">Every school in the main list, plus <a href="#backup">CT State's associate degree</a> and the Yale New Haven and Saint Francis hospital programs.</p>
+        <ol>
+          <li>Optional, during school: take the SPI early, once college physics is passed.</li>
+          <li>If the program director uses ARDMS's paperless application, she can apply up to 60 days before graduation. She must finish the program to keep any exam she passes.</li>
+          <li>Otherwise she applies after graduating, with her diploma or transcript and a letter from the program director. No extra work experience is needed.</li>
+        </ol>
+        <p class="rc-when"><b>Exams:</b> at graduation.</p>
+        <p class="rc-catch"><b>Watch for:</b> the director's letter is good for one year after graduation. After that she needs new paperwork and a signed clinical verification form. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
+      </article>
+      <article class="rcard rc-probe">
+        <div class="rc-head"><span class="rc-path">Pathway 2, if she finishes the accredited part</span><h4>An accredited associate inside the bachelor's</h4></div>
+        <p class="rc-who"><a href="#mount-aloysius">Mount Aloysius</a>, <a href="#south-college">South College</a>, <a href="#eastwick">Eastwick</a>.</p>
+        <ol>
+          <li>Find out whether the bachelor's track runs through the CAAHEP-accredited associate program.</li>
+          <li>If it does, she is a graduate of an accredited program: same steps and timing as Pathway 2.</li>
+          <li>If it does not, she is in the last group below (Pathway 3B).</li>
+        </ol>
+        <p class="rc-catch"><b>Ask:</b> Do bachelor's students complete the accredited program, and can they take the exams at graduation?</p>
+      </article>
+      <article class="rcard rc-cal">
+        <div class="rc-head"><span class="rc-path">Pathway 2, through the partner</span><h4>2+2 and 3+1 with an accredited partner</h4></div>
+        <p class="rc-who"><a href="#ric">Rhode Island College</a>, <a href="#pennwest-clarion">PennWest Clarion</a>, <a href="#iup">IUP</a>, <a href="#york-pa">York College of PA</a>, <a href="#commonwealth-bloomsburg">Commonwealth U</a>, <a href="#immaculata">Immaculata</a>, <a href="#ndmu">Notre Dame of Maryland</a>.</p>
+        <ol>
+          <li>Two or three years of courses at the college.</li>
+          <li>A separate application to the partner's CAAHEP-accredited program. These schools say a seat is not guaranteed.</li>
+          <li>Finishing the partner program makes her a graduate of an accredited program: Pathway 2, exams at graduation.</li>
+        </ol>
+        <p class="rc-catch"><b>Watch for:</b> no partner seat means no sonography training. Her route would then be Pathway 3A: her bachelor's plus 12 months of full-time ultrasound work, or a full-time ultrasound program of at least 12 months, after the degree. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
+        <p class="rc-catch"><b>Ask:</b> What share of your students got a partner seat last year? If I don't get one, what degree do I finish with?</p>
+      </article>
+      <article class="rcard rc-bad">
+        <div class="rc-head"><span class="rc-path">Pathway 3B</span><h4>A bachelor's without CAAHEP accreditation</h4></div>
+        <p class="rc-who"><a href="#sacred-heart">Sacred Heart</a>, <a href="#quinnipiac">Quinnipiac</a>, <a href="#suny-upstate">SUNY Upstate</a>, <a href="#eic">Eastern International</a>.</p>
+        <ol>
+          <li>The program must give her at least 1,680 hours of clinical scanning over at least 12 months, inside the program.</li>
+          <li>Once those 12 months are done, she can apply up to one year before finishing, with a letter from the program.</li>
+          <li>She takes the same SPI and specialty exams.</li>
+        </ol>
+        <p class="rc-catch"><b>Watch for:</b> accreditation is not back-dated; if CAAHEP accredits the program only after she graduates, she still uses this route. If the clinical hours fall short (<a href="#quinnipiac">Quinnipiac</a> lists 1,400+), she would need Pathway 3A after graduating: 12 more months of full-time ultrasound work or schooling. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
+        <p class="rc-catch"><b>Another door:</b> ARRT's sonography exam needs an associate degree or higher and an ARRT-approved program <span class="src">[<a href="https://www.arrt.org/pages/earn-arrt-credentials/initial-requirements/primary-requirements/education-requirements-primary" target="_blank" rel="noopener">arrt.org</a>]</span>, and ARRT's list of accepted accreditors includes NECHE, which accredits Quinnipiac and Sacred Heart. <span class="src">[<a href="https://www.arrt.org/pages/earn-arrt-credentials/initial-requirements/primary-requirements/education-requirements-primary/arrt-recognized-accreditation-agencies" target="_blank" rel="noopener">ARRT's list</a>]</span> ARDMS then lets ARRT sonography holders take its exams (Pathway 5). <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span> Ask whether the program is ARRT-approved.</p>
+        <p class="rc-catch"><b>Sacred Heart's associate degree:</b> an associate graduate of a program without CAAHEP accreditation needs 12 more months of full-time ultrasound experience outside the program first (Pathway 1). <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></p>
+        <p class="rc-catch"><b>Ask:</b> How many clinical hours, over how many months? Which pathway did last year's graduates use, and how many passed the specialty exams? Is the program ARRT-approved for sonography?</p>
+      </article>
+    </div>
+
+    <div class="grid2" style="margin-top:12px">
+      <div class="panel wide" id="license">
+        <h3>Does the state require certification, or the employer?</h3>
+        <p><b>Where she is most likely to work, no state law requires it.</b> Connecticut, New York, Massachusetts, and Rhode Island do not license sonographers; their imaging licenses cover x-ray and other radiation work. <span class="src">[<a href="https://www.cga.ct.gov/current/pub/chap_376c.htm" target="_blank" rel="noopener">Conn. law</a>]</span> <span class="src">[<a href="https://www.health.ny.gov/professionals/doctors/radiological/" target="_blank" rel="noopener">health.ny.gov</a>]</span> <span class="src">[<a href="https://www.mass.gov/how-to/apply-for-radiologic-technologist-or-limited-scope-of-practice-in-radiography-license" target="_blank" rel="noopener">mass.gov</a>]</span> <span class="src">[<a href="https://rules.sos.ri.gov/regulations/part/216-40-05-34" target="_blank" rel="noopener">R.I. rules</a>]</span> There, certification is up to the employer.</p>
+        <ul>
+          <li><b>Employers</b> "may require or prefer" certification <span class="src">[<a href="https://www.bls.gov/ooh/healthcare/diagnostic-medical-sonographers.htm#tab-4" target="_blank" rel="noopener">bls.gov</a>]</span>, and hiring often includes checking the credential with the group that issued it. <span class="src">[<a href="https://www.sdms.org/resources/credential-verification" target="_blank" rel="noopener">sdms.org</a>]</span> Plan on getting certified either way.</li>
+          <li><b>Four states do license sonographers:</b> New Hampshire (since July 31, 2018) <span class="src">[<a href="https://gc.nh.gov/RSA/html/XXX/328-J/328-J-10.htm" target="_blank" rel="noopener">N.H. law</a>]</span>, New Mexico (since June 30, 2019) <span class="src">[<a href="https://www.env.nm.gov/wp-content/uploads/sites/23/2016/06/Non-Ionizing-Information-Sheet-for-MIRTP-web-page.pdf" target="_blank" rel="noopener">env.nm.gov</a>]</span>, North Dakota <span class="src">[<a href="https://ndlegis.gov/cencode/t43c62.pdf" target="_blank" rel="noopener">N.D. law</a>]</span>, and Oregon. <span class="src">[<a href="https://oregon.public.law/rules/oar_337-010-0014" target="_blank" rel="noopener">Oregon rule</a>]</span> SDMS, the sonographers' professional society, lists only these four. <span class="src">[<a href="https://www.sdms.org/resources/credential-verification" target="_blank" rel="noopener">sdms.org</a>]</span> Those licenses rest on certification: Oregon asks for a current ARDMS, ARRT, or CCI credential <span class="src">[<a href="https://oregon.public.law/rules/oar_337-010-0014" target="_blank" rel="noopener">Oregon rule</a>]</span>, and North Dakota asks applicants to pass a certification exam. <span class="src">[<a href="https://ndlegis.gov/cencode/t43c62.pdf" target="_blank" rel="noopener">N.D. law</a>]</span></li>
+          <li><b>Certification or license?</b> Certification is national: passing the ARDMS, ARRT, or CCI exams. A license is one state's permission to work there.</li>
+        </ul>
+      </div>
       <div class="panel wide">
-        <h3>Registry and license basics</h3>
-        <ul>
-          <li>Graduates of a CAAHEP-accredited program qualify for the ARDMS exams right away (Pathway 2). Students in paperless programs can apply up to 60 days before graduation. <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">inteleos.org</a>]</span></li>
-          <li>The SPI physics exam costs $275 and has about 110 questions over two hours. You must pass the SPI and a specialty exam within five years of each other, in either order. <span class="src">[<a href="https://www.inteleos.org/exam/sonography-principles-and-instrumentation/" target="_blank" rel="noopener">inteleos.org</a>]</span></li>
-          <li>Connecticut does not require a state license for sonographers. California, Washington DC, New Hampshire, New Mexico, and Oregon do, per MCPHS's licensure list. <span class="src">[<a href="https://www.mcphs.edu/academics/schools/medical-imaging-and-therapeutics/professional-licensure-disclosures/dms" target="_blank" rel="noopener">mcphs.edu</a>]</span></li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>The bachelor's has no CAAHEP accreditation</h3>
-        <p><a href="#sacred-heart">Sacred Heart</a>, <a href="#quinnipiac">Quinnipiac</a>, <a href="#suny-upstate">SUNY Upstate</a>, <a href="#eic">Eastern International</a>.</p>
-        <ul>
-          <li>She can still take the registry exams, by ARDMS Pathway 3B: bachelor's students qualify after at least 1,680 hours of clinical scanning over 12 months inside the program, and can apply up to a year before finishing.</li>
-          <li>Accreditation is not back-dated. If the program is accredited only after she graduates, she still counts as a graduate of an unaccredited program.</li>
-          <li>Ask: How many clinical hours do your students complete? Which pathway do your graduates use, and how many passed last year?</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>An accredited associate sits inside the bachelor's</h3>
-        <p><a href="#mount-aloysius">Mount Aloysius</a>, <a href="#south-college">South College</a>, <a href="#eastwick">Eastwick</a>.</p>
-        <ul>
-          <li>Graduates of a CAAHEP-accredited program use Pathway 2: no extra clinical experience, exams right at graduation.</li>
-          <li>So the key question is whether bachelor's students finish that same accredited sequence. If yes, she is a graduate of an accredited program. If not, she is in the first group.</li>
-          <li>Ask: Do bachelor's students complete the accredited program, and can they take the exams at graduation?</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>2+2 and 3+1 with an accredited partner</h3>
-        <p><a href="#ric">Rhode Island College</a>, <a href="#pennwest-clarion">PennWest Clarion</a>, <a href="#iup">IUP</a>, <a href="#york-pa">York College of PA</a>, <a href="#commonwealth-bloomsburg">Commonwealth U</a>, <a href="#immaculata">Immaculata</a>, <a href="#ndmu">Notre Dame of Maryland</a>.</p>
-        <ul>
-          <li>The sonography training happens in the partner's CAAHEP-accredited program. Finishing it makes her a graduate of an accredited program (Pathway 2).</li>
-          <li>The catch: getting into the partner is a separate application, and these schools say a seat is not guaranteed.</li>
-          <li>Ask: What share of your students got a partner seat last year? If I don't get one, what degree do I finish with?</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>The bottom line</h3>
+        <h3>The bottom line: does an accredited school matter?</h3>
         <ul>
           <li>A CAAHEP-accredited bachelor's (the main list) is the most direct route: exams at graduation.</li>
           <li>The other routes can work, but each adds a condition: enough clinical hours, finishing the accredited part, or winning a partner seat.</li>
+          <li>Missing that condition can mean 12 more months of full-time ultrasound work or schooling after graduation before she can apply (Pathway 3A). <span class="src">[<a href="https://www.inteleos.org/wp-content/uploads/2026/04/SPI_Specialty_Prerequisites_Final-102026.pdf" target="_blank" rel="noopener">ARDMS rules</a>]</span></li>
           <li>Get the answer in writing from the program before she commits.</li>
         </ul>
       </div>
@@ -785,7 +837,9 @@ html { scroll-behavior: smooth; }
       <dt>Room and board</dt><dd>Housing and meals.</dd>
       <dt>Transfer only</dt><dd>You take college credits somewhere else first, then apply.</dd>
       <dt>2+2 and 3+1</dt><dd>Years at the college, then years in a partner hospital's sonography program.</dd>
-      <dt>Pathway 2, Pathway 3B</dt><dd>Two ARDMS routes to the exams: Pathway 2 for graduates of CAAHEP-accredited programs, Pathway 3B for bachelor's students in programs without that accreditation.</dd>
+      <dt>Pathway 2, 3A, 3B</dt><dd>ARDMS routes to the exams: Pathway 2 for graduates of CAAHEP-accredited programs, Pathway 3B for bachelor's students in programs without that accreditation, Pathway 3A for a bachelor's plus 12 months of full-time ultrasound work or schooling.</dd>
+      <dt>Certification</dt><dd>Passing national exams from ARDMS, ARRT, or CCI. Employers may require or prefer it.</dd>
+      <dt>License</dt><dd>One state's permission to work there. Only New Hampshire, New Mexico, North Dakota, and Oregon license sonographers.</dd>
     </dl>
   </details>
   </div>
@@ -958,7 +1012,7 @@ html { scroll-behavior: smooth; }
     <div class="part-head"><div class="pn">5</div><div><div class="eyebrow">Part 5 of 5 · the rest</div><h2 class="part-title" id="p5-t">More programs and fine print</h2><p>Programs without CAAHEP accreditation, schools that did not make the list, and how this page was built.</p><nav class="part-chips" aria-label="In this part"><a href="#watch-section">Without CAAHEP accreditation</a><a href="#also">Also checked</a><a href="#method">How this was built</a></nav></div></div>
   <section id="watch-section">
     <h2>Bachelor's programs without CAAHEP accreditation</h2>
-    <p class="sub">These schools offer a sonography bachelor's that CAAHEP does not accredit. They are not in the compare table. What that means for the registry exams is in <a href="#pathways">How a degree leads to the registry exams</a>.</p>
+    <p class="sub">These schools offer a sonography bachelor's that CAAHEP does not accredit. They are not in the compare table. What that means for the registry exams is in <a href="#pathways">Getting certified</a>.</p>
     <div class="cards" id="watch"></div>
     <h3 class="subhead">More bachelor's programs taught by the school</h3>
     <div class="checked unacc" id="unacc-own"></div>
@@ -1249,6 +1303,7 @@ html { scroll-behavior: smooth; }
         ${s.typeKey ? `<span class="badge">${esc(s.typeKey)}</span>` : ""}
         ${s.entryShort ? `<span class="badge${s.entryRank > 1 ? " warn" : ""}">${esc(s.entryShort)}</span>` : ""}
       </div>
+      <div class="routeline">Registry exams: <b>Pathway 2</b>, at graduation · <a href="#pathways">How certification works</a></div>
       <div class="degree"><b>${txt(val(s.degree))}</b>${site ? ` · <a href="${esc(site)}" target="_blank" rel="noopener">Program page</a>` : ""}</div>
       <div class="tracks">${s.caahep.map((r) => `<span class="track">${esc(r.short)}<b>${esc(r.cred)}</b></span>`).join("")}</div>
       <div class="readout" aria-label="Program outcomes">
@@ -1337,6 +1392,12 @@ html { scroll-behavior: smooth; }
   render();
 
   // ---------- bachelor's programs without CAAHEP accreditation ----------
+  // Which ARDMS route each program leads to, from the "Getting certified" cards.
+  const ROUTE = {};
+  ["sacred-heart", "quinnipiac", "suny-upstate", "eic"].forEach((k) => (ROUTE[k] = "<b>Pathway 3B</b>, if the program gives 1,680 clinical hours over 12 months"));
+  ["mount-aloysius", "south-college", "eastwick"].forEach((k) => (ROUTE[k] = "<b>Pathway 2</b> if she finishes the accredited associate; otherwise 3B"));
+  ["ric", "pennwest-clarion", "iup", "york-pa", "commonwealth-bloomsburg", "immaculata", "ndmu"].forEach((k) => (ROUTE[k] = "<b>Pathway 2</b> through the partner's accredited program, if she gets a seat"));
+  const routeLine = (w) => ROUTE[w.id] ? `<div class="routeline">Registry exams: ${ROUTE[w.id]} · <a href="#pathways">How certification works</a></div>` : "";
   // The verdict stays in view; each part of the close look, the questions, and the full profile fold away (open on wide screens).
   const fullCard = (w) => {
     const cl = w.closeLook;
@@ -1347,6 +1408,7 @@ html { scroll-behavior: smooth; }
     return `<article class="card newprog r-${esc(w.region || "ne")}" id="${esc(w.id)}">
       <div class="card-head"><div><div class="region">${esc(RNAME[w.region] || "")} · ${esc(w.state)}</div><h3>${esc(w.school)}</h3><div class="where">${esc(w.city)}, ${esc(w.state)}</div></div></div>
       <div class="badges"><span class="badge bad">✕ ${esc(((w.tags || []).find(([t]) => /^Not CAAHEP/.test(t)) || ["Not CAAHEP-accredited"])[0])}</span>${(w.tags || []).filter(([t]) => !/^Not CAAHEP/.test(t)).map(([t, k]) => `<span class="badge${k ? " " + esc(k) : ""}">${esc(t)}</span>`).join("")}</div>
+      ${routeLine(w)}
       <p style="margin:14px 0 0">${esc(w.summary)}</p>
       ${cl ? `<div class="closelook"><h4>Close look</h4><p class="verdict">${esc(cl.summary)}</p><div class="folds">
         ${cl.groups.map(([h, items], i) => fold(`${w.id}:cl${i}`, `${esc(h)} ${cnt(items.length)}`, `<ul>${items.map((x) => `<li>${item(x)}</li>`).join("")}</ul>`, { open: WIDE })).join("")}
@@ -1374,6 +1436,7 @@ html { scroll-behavior: smooth; }
       <h3 style="margin-top:8px">${esc(w.school)}</h3>
       <div class="muted" style="font-size:13px">${esc(w.city)}${w.state ? ", " + esc(w.state) : ""} · ${esc(w.type || "")}</div>
       <p>${esc(w.degree)}</p>
+      ${routeLine(w)}
       <dl>${(w.points || []).map(([k, v, u]) => `<dt>${esc(k)}</dt><dd>${esc(v)}${srcLink({ source: u })}</dd>`).join("")}</dl>
       <div class="links">${safeUrl(w.url) ? `<a href="${esc(safeUrl(w.url))}" target="_blank" rel="noopener">Program page</a>` : ""}${safeUrl(w.nav) ? `<a href="${esc(safeUrl(w.nav))}" target="_blank" rel="noopener">Cost and aid (College Navigator)</a>` : ""}<a href="#map-section">See on the map</a></div>
     </div>`;
